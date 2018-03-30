@@ -1,7 +1,12 @@
 package com.github.dusv03.adventura_dragon_knight.logika;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.github.dusv03.adventura_dragon_knight.logika.IPrikaz;
+import com.github.dusv03.adventura_dragon_knight.logika.SeznamPrikazu;
 
 /**
  *  Class SeznamPrikazu - eviduje seznam přípustných příkazů adventury.
@@ -15,10 +20,10 @@ import java.util.Map;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Alena Buchalcevova
  *@version    z kurzu 4IT101 pro školní rok 2013/2014
  */
-public class SeznamPrikazu {
+class SeznamPrikazu {
     // mapa pro uložení přípustných příkazů
-    private  Map<String,IPrikaz> mapaSPrikazy;
-    
+    private final Map<String,IPrikaz> mapaSPrikazy;
+    private static final SeznamPrikazu SINGLETON = new SeznamPrikazu();
    
     
     /**
@@ -26,6 +31,10 @@ public class SeznamPrikazu {
      */
     public SeznamPrikazu() {
         mapaSPrikazy = new HashMap<>();
+    }
+    
+    static SeznamPrikazu getInstance(){
+        return SINGLETON;
     }
     
     
@@ -45,9 +54,9 @@ public class SeznamPrikazu {
      *@param  retezec  klíčové slovo příkazu, který chce hráč zavolat
      *@return          instance třídy, která provede požadovaný příkaz
      */
-    public IPrikaz vratPrikaz(String retezec) {
-        if (mapaSPrikazy.containsKey(retezec)) {
-            return mapaSPrikazy.get(retezec);
+    public IPrikaz vratPrikaz(String nazevPrikazu) {
+        if (mapaSPrikazy.containsKey(nazevPrikazu)) {
+            return mapaSPrikazy.get(nazevPrikazu);
         }
         else {
             return null;
@@ -61,8 +70,8 @@ public class SeznamPrikazu {
      *@return          Vrací hodnotu true, pokud je zadaný
      *                     řetězec přípustný příkaz
      */
-    public boolean jePlatnyPrikaz(String retezec) {
-        return mapaSPrikazy.containsKey(retezec);
+    public boolean jePlatnyPrikaz(String nazevPrikazu) {
+        return mapaSPrikazy.containsKey(nazevPrikazu);
     }
 
     /**
@@ -76,6 +85,10 @@ public class SeznamPrikazu {
             seznam += slovoPrikazu + " ";
         }
         return seznam;
+    }
+    
+    public Collection<IPrikaz> vratPrikazy(){
+        return Collections.unmodifiableCollection(mapaSPrikazy.values());
     }
     
 }

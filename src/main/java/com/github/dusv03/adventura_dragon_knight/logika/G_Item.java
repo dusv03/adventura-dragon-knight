@@ -5,6 +5,8 @@ package eu.pedu.adv17s._4_1100.dusv03_dusek.game;
 
 import eu.pedu.adv17s_fw.game_txt.IItem;
 
+//vyřešeno
+
 /*******************************************************************************
  * Instances of the {@code EmptyItem} class represent the items in places.
  * These items can be things as well as persons or other entities
