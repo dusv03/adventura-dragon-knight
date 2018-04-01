@@ -12,7 +12,7 @@ import com.github.dusv03.adventura_dragon_knight.ui.TextoveRozhrani;
  * Třída {@code Start} je hlavní třídou projektu,
  * který ...
  *
- * @author    jméno autora
+ * @author   dusv03
  * @version   0.00.000
  */
 public class Start

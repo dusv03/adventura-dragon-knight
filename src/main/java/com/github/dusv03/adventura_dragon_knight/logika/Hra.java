@@ -3,9 +3,16 @@ package com.github.dusv03.adventura_dragon_knight.logika;
 import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
 import static com.github.dusv03.adventura_dragon_knight.logika.Vec.*;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import com.github.dusv03.adventura_dragon_knight.logika.Hra;
 
-import com.github.dusv03.adventura_dragon_knight.logika.SeznamPrikazu;  
+import com.github.dusv03.adventura_dragon_knight.logika.SeznamPrikazu;
+
+import com.github.dusv03.adventura_dragon_knight.logika.Prostor;
+import com.github.dusv03.adventura_dragon_knight.logika.Vec;
+ 
 /**
  *  Třída Hra - třída představující logiku adventury.
  * 
@@ -45,6 +52,8 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new ActionGive(herniPlan, batoh));
         batoh.vlozVec(new Vec(STANDARD + MEČ));
         batoh.vlozVec(new Vec(STANDARD + PRSTEN));
+        State.initialize();
+        batoh.set_remains(2);
     }
 
     /**
@@ -88,15 +97,18 @@ public class Hra implements IHra {
         if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
             IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
             textKVypsani = prikaz.proved(parametry);
-            if (herniPlan.getAktualniProstor() == herniPlan.getViteznyProstor()  ) {
-                konecHry = true ;
-                textKVypsani = textKVypsani + "\n Hurá";
-            }
+            
         }
         else {
             textKVypsani="Nevím co tím myslíš, tento příkaz neznám? ";
         }
-        return textKVypsani;
+        String state = String.format(FORMÁT_INFORMACE,
+                herniPlan.getAktualniProstor().getNazev(), 
+                Texts.cm(placesToArray(herniPlan.getAktualniProstor().getVychody())), 
+                Texts.cm(itemsToArray(herniPlan.getAktualniProstor().getVeci())),
+                Texts.cm(itemsToArray(batoh.getVeci())) );
+                textKVypsani += state;
+                return textKVypsani;
     }
     
     
@@ -123,6 +135,20 @@ public class Hra implements IHra {
      public SeznamPrikazu vratSeznam(){
          return platnePrikazy;
      }
+     
+     private String[] placesToArray(Collection<Prostor> collection) {
+         String[] res = 
+         collection.stream().map(in -> in.getNazev())
+         .collect(Collectors.toList()).toArray(new String[collection.size()]);
+       return res;
+     }
+     
+     private String[] itemsToArray(Collection<Vec> collection) {
+         String[] res = 
+          collection.stream().map(in -> in.getJmeno())
+          .collect(Collectors.toList()).toArray(new String[collection.size()]);
+        return res;
+      }
     
 }
 

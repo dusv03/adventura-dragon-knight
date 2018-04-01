@@ -66,6 +66,7 @@ public abstract class AKontejner {
         if (seznamVeci.containsKey(jmeno)) {
                 OVec = Optional.of(seznamVeci.get(jmeno));
                 seznamVeci.remove(jmeno);
+               
                 return OVec;
 
             }   

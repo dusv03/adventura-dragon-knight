@@ -31,14 +31,14 @@ public class ActionPutDown
     @Override
     public String proved(String... arguments)
     {
-        if (arguments.length == 1)
+        if (arguments.length == 0)
         {
             return Texts.zŽÁDNÝ_PARAMETR + Texts.zCHYBA_POLOŽIT;
         }
         
-        String itemName = arguments[1];
+        String itemName = arguments[0];
         Prostor currentPlace = herniPlan.getAktualniProstor();
-        Optional<Vec> oItem = currentPlace.vratOVec(itemName);
+        Optional<Vec> oItem = batoh.vratOVec(itemName);
         if ( ! oItem.isPresent())
         {
             return Texts.zNENÍ_V_BATOHU;
@@ -46,6 +46,8 @@ public class ActionPutDown
         
         Vec W_Item = oItem.get();
         batoh.vyberOVec(W_Item.getJmeno());
+        int x = batoh.get_remains();
+        batoh.set_remains(x+1);
         currentPlace.vlozVec(W_Item);
         return Texts.zPOLOŽENÍ + " " + W_Item.getJmeno();
     }

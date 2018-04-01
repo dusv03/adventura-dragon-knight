@@ -28,11 +28,11 @@ public class ActionActivate
     @Override
     public String proved(String... arguments)
     {
-        if (arguments.length == 1)
+        if (arguments.length == 0)
         {
             return Texts.zŽÁDNÝ_PARAMETR +"\n" + Texts.zCHYBA_AKTIVOVAT;
         }
-        String itemName = arguments[1];
+        String itemName = arguments[0];
         Optional<Vec> oItem = batoh.vratOVec(itemName);
         if ( ! oItem.isPresent())
         {

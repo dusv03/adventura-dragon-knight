@@ -39,12 +39,12 @@ public class ActionGive
     @Override
     public String proved(String... arguments)
     {
-       if (arguments.length == 1)
+       if (arguments.length == 0)
         {
             return zŽÁDNÝ_PARAMETR + zCHYBA_POLOŽIT;
         }
         
-        String itemName = arguments[1];
+        String itemName = arguments[0];
         Optional<Vec> oItem = batoh.vratOVec(itemName);
         if ( ! oItem.isPresent())
         {
@@ -58,6 +58,8 @@ public class ActionGive
                 if (itemName.equals(Texts.BYLINY))
                 {
                 	batoh.vyberOVec(itemName);
+                    int x = batoh.get_remains();
+                    batoh.set_remains(x+1);
                     answer = Texts.zPŘEDÁNÍ + " " + Texts.BYLINY;
                     State.setmageS(3);
                     Vec ttalisman = new Vec(STANDARD + AMULET);
@@ -73,6 +75,8 @@ public class ActionGive
                 if (itemName.equals(Texts.PRSTEN))
                 {
                 	batoh.vyberOVec(itemName);
+                    int x = batoh.get_remains();
+                    batoh.set_remains(x+1);
                     State.setspriteS(3);
                     Vec ttalisman = new Vec(STANDARD + BYLINY);
                     currentPlace.vlozVec(ttalisman);
@@ -88,6 +92,8 @@ public class ActionGive
                 if (itemName.equals(Texts.MEČ))
                 {
                 	batoh.vyberOVec(itemName);
+                    int x = batoh.get_remains();
+                    batoh.set_remains(x+1);
                     answer = Texts.zPŘEDÁNÍ + " " + Texts.MEČ;
                     if (State.getblacksmithS() == 2)
                     {
@@ -107,6 +113,8 @@ public class ActionGive
                     if(itemName.equals(Texts.METEORITSKÁ_RUDA))
                     {
                     	batoh.vyberOVec(itemName);
+                        int x = batoh.get_remains();
+                        batoh.set_remains(x+1);
                         answer = Texts.zPŘEDÁNÍ + " " + Texts.METEORITSKÁ_RUDA;
                         if (State.getblacksmithS() == 3)
                         {
@@ -133,11 +141,4 @@ public class ActionGive
         
         return answer;
     }
-
-//\IP== INSTANCE PRIVATE AND AUXILIARY METHODS =================================
-
-
-
-//##############################################################################
-//\NT== NESTED DATA TYPES ======================================================
 }

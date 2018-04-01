@@ -29,13 +29,13 @@ public class ActionPickUp
     @Override
     public String proved(String... arguments)
     {
-        if (arguments.length == 1)
+        if (arguments.length == 0)
         {
             return Texts.zŽÁDNÝ_PARAMETR + Texts.zCHYBA_SEBRAT;
         }
         
         String itemName;
-        itemName = arguments[1];
+        itemName = arguments[0];
         Prostor currentPlace = herniPlan.getAktualniProstor();
         Optional<Vec> oItem = currentPlace.vratOVec(itemName);
         if ( ! oItem.isPresent())

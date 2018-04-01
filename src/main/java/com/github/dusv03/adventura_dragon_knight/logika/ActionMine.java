@@ -27,12 +27,12 @@ public class ActionMine
     @Override
     public String proved(String... arguments)
     {
-        if (arguments.length == 1)
+        if (arguments.length == 0)
         {
             return Texts.zŽÁDNÝ_PARAMETR;
         }
         String itemName;
-        itemName = arguments[1];
+        itemName = arguments[0];
         String pickaxe = Texts.KRUMPÁČ;
         Optional<Vec> oPickaxe = batoh.vratOVec(pickaxe);
         if ( ! oPickaxe.isPresent())

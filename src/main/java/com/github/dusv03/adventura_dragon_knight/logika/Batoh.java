@@ -49,7 +49,7 @@ boolean tryAddItem(Vec i)
    else 
     {
 	vlozVec(i);
-    remains -= i.getWeight();
+    remains = remains - i.getWeight();
     return true;
     }
 }
@@ -77,8 +77,17 @@ boolean tryAddItem(Vec i)
         if (seznamVeci.containsKey(jmeno)) {
             nalezenaVec = seznamVeci.get(jmeno);
             seznamVeci.remove(jmeno);
+            remains = remains +1;
         }   
         return nalezenaVec;
+    }
+    
+    public void set_remains(int r) {
+    	remains = r;
+    }
+    
+    public int get_remains() {
+    	return remains;
     }
 
 }

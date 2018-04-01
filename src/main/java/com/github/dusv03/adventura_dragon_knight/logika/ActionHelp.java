@@ -13,17 +13,9 @@ import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
 
 
 /*******************************************************************************
- * Instances of the {@code EmptyAction} class process the commands, which
- * ???.
- * <p>
- * Instances of the action classes are effectively singletons,
- * however we do not need to ensure it explicitely, because for their creation
- * and further management the specified action manager takes care
- * which ensures the only instance of each such class.
- * </p>
  *
- * @author  Rudolf PECINOVSKÝ
- * @version 2017-Summer
+ * @author  dusv03
+ * 
  */
 public class ActionHelp
      extends APrikaz

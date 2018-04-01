@@ -13,14 +13,6 @@ import com.github.dusv03.adventura_dragon_knight.logika.Vec;
 
 
 /*******************************************************************************
- * Instances of the {@code EmptyAction} class process the commands, which
- * ???.
- * <p>
- * Instances of the action classes are effectively singletons,
- * however we do not need to ensure it explicitely, because for their creation
- * and further management the specified action manager takes care
- * which ensures the only instance of each such class.
- * </p>
  *
  * @author  dusv03
  */
@@ -42,14 +34,14 @@ public class ActionMove extends APrikaz{
 	@Override
     public String proved(String... arguments)
     {
-    	 if (arguments.length == 1)
+    	 if (arguments.length == 0)
          {
              return Texts.zŽÁDNÝ_PARAMETR + Texts.zCHYBA_PŘESUN_A;
          }
          else
          {
              String destinationName;
-             destinationName = arguments[1];
+             destinationName = arguments[0];
              Optional<Prostor> oDestination = herniPlan.
                      getAktualniProstor().
                      vratSousedniProstor(destinationName);
@@ -88,7 +80,7 @@ public class ActionMove extends APrikaz{
                  {
                 	 Prostor currentPlace = herniPlan.getAktualniProstor();
                 	 Optional<Vec> oItem = currentPlace.vratOVec(PŘÍZRAK);
-                     if ( ! oItem.isPresent())
+                     if ( oItem.isPresent())
                      {
                          return zPŘÍZRAKB;
                      }

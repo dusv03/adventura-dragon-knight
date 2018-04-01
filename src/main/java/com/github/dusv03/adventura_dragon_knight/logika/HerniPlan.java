@@ -24,7 +24,6 @@ public class HerniPlan {
     
 	private Map<String, Prostor> prostory;
 	private Prostor aktualniProstor;
-    private Prostor viteznyProstor;
     private static final HerniPlan SINGLETON = new HerniPlan();
     
      /**
@@ -86,7 +85,6 @@ public class HerniPlan {
         sluj.setVychod(jeskyne);
         
         aktualniProstor = rozcesti;  // hra začíná v domečku  
-        viteznyProstor = sluj ;
         carodejova_vez.vlozVec(new Vec(COMMUNICATIVE+ČARODĚJ));
         lesni_mytina.vlozVec(new Vec(COMMUNICATIVE+LESNÍ_VÍLA)); 
         dul.vlozVec(new Vec(STANDARD+KRUMPÁČ));
@@ -122,9 +120,6 @@ public class HerniPlan {
      *@return     vítězný prostor
      */
     
-    public Prostor getViteznyProstor() {
-        return viteznyProstor;
-    }
     
     public Map<String, Prostor> getProstory() {
     	return prostory;
