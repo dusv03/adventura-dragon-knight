@@ -1,5 +1,7 @@
 package com.github.dusv03.adventura_dragon_knight.logika;
 
+
+import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
 /**
  *  Třída PrikazObsahBatohu implementuje pro hru příkaz obsahBatohu.
  *@author     Alena Buchalcevova
@@ -7,7 +9,7 @@ package com.github.dusv03.adventura_dragon_knight.logika;
  */
 
 
-public class PrikazObsahBatohu implements IPrikaz
+public class PrikazOBatohu extends APrikaz
 {
 private static final String NAZEV = "obsahBatohu";
     private Batoh batoh;
@@ -16,7 +18,9 @@ private static final String NAZEV = "obsahBatohu";
     *  
     *  @param plan herní plán, ve kterém se bude hledat aktuální místnost 
     */      
-    public PrikazObsahBatohu( Batoh batoh) {
+    public PrikazOBatohu( Batoh batoh) {
+    	super (pOBSAH_BATOHU,
+                "Vypíše obsah batohu");
         this.batoh = batoh;
     }
     /**
@@ -27,11 +31,6 @@ private static final String NAZEV = "obsahBatohu";
     public String proved(String... parametry) {
             return batoh.nazvyVeci();
     }
-   
-    public String getNazev() {
-        return NAZEV;
-    }
-
 }
 
 

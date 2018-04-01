@@ -3,6 +3,11 @@ package com.github.dusv03.adventura_dragon_knight.logika;
  
 
 import java.util.Map;
+
+import com.github.dusv03.adventura_dragon_knight.logika.AKontejner;
+import com.github.dusv03.adventura_dragon_knight.logika.Batoh;
+import com.github.dusv03.adventura_dragon_knight.logika.Vec;
+
 import java.util.HashMap;
 /**
  *  Trida Batoh 
@@ -12,22 +17,42 @@ import java.util.HashMap;
  *@version    z kurzu 4IT101 pro školní rok 2014/2015
  */
 
-public class Batoh
+public class Batoh extends AKontejner
 {
-public static final int KAPACITA = 3 ;
-private Map<String, Vec> seznamVeci ;   // seznam věcí v batohu
+	private static final Batoh SINGLETON = new Batoh();
+	public static final int KAPACITA = 4 ;
+	private Map<String, Vec> seznamVeci ;   // seznam věcí v batohu
+	private  int remains;
 
-public Batoh () {
-seznamVeci = new HashMap<String, Vec>();
-}
+	public Batoh () {
+	seznamVeci = new HashMap<String, Vec>();
+	remains = KAPACITA;
+	}
  /**
      * Vloží věc do batohu
      *
      *@param  vec  instance věci, která se má vložit
      */
-   public void vlozVec (Vec vec) {
-     seznamVeci.put(vec.getJmeno(),vec);
+static int getCapacity() {
+    return KAPACITA;
+}
+
+
+static Batoh getInstance(){
+    return SINGLETON;
+}
+
+
+boolean tryAddItem(Vec i)
+{
+   if(i.getWeight()> this.remains) return false;
+   else 
+    {
+	vlozVec(i);
+    remains -= i.getWeight();
+    return true;
     }
+}
      /**
      * Vrací řetězec názvů věcí, které jsou v batohu
 

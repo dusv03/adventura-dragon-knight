@@ -64,6 +64,7 @@ public class Texts {
             pZABÍT = "zabít",
             pNATĚŽIT = "natěžit",
             pEND_GAME = "end_game",
+            pOBSAH_BATOHU = "obsah_batohu",
             pSTART = "start";
     
     /** Formát dodatku zprávy informujícího o aktuálním stavu hráče. */
@@ -137,6 +138,8 @@ public class Texts {
             
             zPOLOŽENÍ = "Položil jsi",
             
+            zPŘÍZRAKB = "V cestě ti stojí přízrak",
+            
             zKOVÁŘ1 = "Čaroděj říkal, že potřebuješ meč, který zabije\n "
           + "draka. Muřu ti ho vyrobit, ale potřebuju meteoritskou rudu a \n"
           + "něco čím mi zaplatíš za práci. Myslím, že tvůj starý meč \n"
@@ -178,6 +181,8 @@ public class Texts {
             zPRÁZDNÝ_PŘÍKAZ = "Zadal jste prázdný příkaz.",
             
             zCHYBNÝ_PARAMETR = "Zadal jsi chybý parametr k zadanemu příkazu.",
+            
+            zEXIT_PARA = "Tento příkaz nemá mít zadaný parametr.",
             
             zCHYBA_PŘESUN_A = "\nParametrem musí být soused momentální lokace.",
             

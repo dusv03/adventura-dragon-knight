@@ -1,12 +1,12 @@
 /* The file is saved in UTF-8 codepage.
  * Check: «Stereotype», Section mark-§, Copyright-©, Alpha-α, Beta-β, Smile-☺
  */
-package eu.pedu.adv17s._4_1100.dusv03_dusek.game;
+package com.github.dusv03.adventura_dragon_knight.logika;
 
 import java.util.Optional;
 
-import static eu.pedu.adv17s._4_1100.dusv03_dusek.game.Texts.*;
-import static eu.pedu.adv17s._4_1100.dusv03_dusek.game.G_Item.*;
+import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
+import static com.github.dusv03.adventura_dragon_knight.logika.Vec.*;
 
 /*******************************************************************************
  * Instances of the {@code EmptyAction} class process the commands, which
@@ -22,101 +22,46 @@ import static eu.pedu.adv17s._4_1100.dusv03_dusek.game.G_Item.*;
  * @version 2017-Summer
  */
 public class ActionGive
-     extends AAction
+     extends APrikaz
 {
-//\CC== CLASS CONSTANTS (CONSTANT CLASS/STATIC ATTRIBUTES/FIELDS) ==============
-//\CV== CLASS VARIABLES (VARIABLE CLASS/STATIC ATTRIBUTES/FIELDS) ==============
-
-
-
-//##############################################################################
-//\CI== CLASS (STATIC) INITIALIZER (CLASS CONSTRUCTOR) =========================
-//\CF== CLASS (STATIC) FACTORY METHODS =========================================
-//\CG== CLASS (STATIC) GETTERS AND SETTERS =====================================
-//\CM== CLASS (STATIC) REMAINING NON-PRIVATE METHODS ===========================
-
-//\CP== CLASS (STATIC) PRIVATE AND AUXILIARY METHODS ===========================
-
-
-
-
-//##############################################################################
-//\IC== INSTANCE CONSTANTS (CONSTANT INSTANCE ATTRIBUTES/FIELDS) ===============
-//\IV== INSTANCE VARIABLES (VARIABLE INSTANCE ATTRIBUTES/FIELDS) ===============
-
-
-
-//##############################################################################
-//\II== INSTANCE INITIALIZERS (CONSTRUCTORS) ===================================
-
-    /***************************************************************************
-     * Creates the action instance for ...
-     */
-    public ActionGive()
+	private final HerniPlan herniPlan;
+    private final Batoh batoh;
+	
+    public ActionGive(HerniPlan herniPlan, Batoh batoh)
     {
-        super (Texts.pPŘEDAT,
+        super (pPŘEDAT,
                "Předá věc určenou parametrem osobě \n"
           + "v současné lokaci.\n");
+        this.herniPlan = herniPlan;
+        this.batoh = batoh;
     }
 
-
-
-//\IA== INSTANCE ABSTRACT METHODS ==============================================
-//\IG== INSTANCE GETTERS AND SETTERS ===========================================
-//\IM== INSTANCE REMAINING NON-PRIVATE METHODS =================================
-
-    /***************************************************************************
-     * Processes the command composed from the given words
-     * and returns the game answer to the user.
-     * Number of word depends on particular action, however it must be
-     * at least one, because the zeroth element contains the action name.
-     * The remaining words are arguments of this action and they may differ:
-     * the actions of <i>end</i> and <i>help</i> type do not have any,
-     * the actions of <i>go</i> and <i>take</i> type have one,
-     * the actions of <i>apply</i> type ) can have two (e.g. apply key lock)
-     * or three (e.g. apply key to lock) etc.
-     *
-     * @param arguments Action arguments –
-     *                  their number can be different for each action,
-     *                  but for all execution of the same action is the same
-     * @return The answer of the game after processing the command
-     */
-
-    /***************************************************************************
-    * Předčasně ukončí hru.
-    *
-    * @param arguments Parametry příkazu - zde se nepoužívají
-    * @return Text zprávy vypsané po provedeni příkazu
-    */
-
     @Override
-    public String execute(String... arguments)
+    public String proved(String... arguments)
     {
        if (arguments.length == 1)
         {
-            return Texts.zŽÁDNÝ_PARAMETR + Texts.zCHYBA_POLOŽIT;
+            return zŽÁDNÝ_PARAMETR + zCHYBA_POLOŽIT;
         }
         
         String itemName = arguments[1];
-        Bag bag = Bag.getInstance();
-        Optional<G_Item> oItem = bag.getOItem(itemName);
+        Optional<Vec> oItem = batoh.vratOVec(itemName);
         if ( ! oItem.isPresent())
         {
             return Texts.zNENÍ_V_BATOHU;
         }
-        G_Item W_Item = oItem.get();
-        bag.removeItem(W_Item);
-        Place currentPlace = World.getInstance().getCurrentPlace();
-        String place = currentPlace.getName();
+        Prostor currentPlace = herniPlan.getAktualniProstor();
+        String place = currentPlace.getNazev();
         String answer;
         switch (place){
             case Texts.ČARODĚJOVA_VĚŽ:
                 if (itemName.equals(Texts.BYLINY))
                 {
+                	batoh.vyberOVec(itemName);
                     answer = Texts.zPŘEDÁNÍ + " " + Texts.BYLINY;
                     State.setmageS(3);
-                    G_Item ttalisman = new G_Item(STANDARD + AMULET);
-                    currentPlace.addItem(ttalisman);
+                    Vec ttalisman = new Vec(STANDARD + AMULET);
+                    currentPlace.vlozVec(ttalisman);
                 }
                 else
                 {
@@ -127,9 +72,10 @@ public class ActionGive
             case Texts.LESNÍ_MÝTINA:
                 if (itemName.equals(Texts.PRSTEN))
                 {
+                	batoh.vyberOVec(itemName);
                     State.setspriteS(3);
-                    G_Item ttalisman = new G_Item(STANDARD + BYLINY);
-                    currentPlace.addItem(ttalisman);
+                    Vec ttalisman = new Vec(STANDARD + BYLINY);
+                    currentPlace.vlozVec(ttalisman);
                     answer = Texts.zLESNÍVÍLA2;
                 }
                 else
@@ -141,13 +87,14 @@ public class ActionGive
             case Texts.KOVÁRNA:
                 if (itemName.equals(Texts.MEČ))
                 {
+                	batoh.vyberOVec(itemName);
                     answer = Texts.zPŘEDÁNÍ + " " + Texts.MEČ;
                     if (State.getblacksmithS() == 2)
                     {
                         State.setblacksmithS(4);
-                        G_Item ttalisman = new G_Item(STANDARD + 
+                        Vec ttalisman = new Vec(STANDARD + 
                                                       METEORITSKÝ_MEČ);
-                        currentPlace.addItem(ttalisman);
+                        currentPlace.vlozVec(ttalisman);
                     }
                     else
                     {
@@ -159,13 +106,14 @@ public class ActionGive
                 {
                     if(itemName.equals(Texts.METEORITSKÁ_RUDA))
                     {
+                    	batoh.vyberOVec(itemName);
                         answer = Texts.zPŘEDÁNÍ + " " + Texts.METEORITSKÁ_RUDA;
                         if (State.getblacksmithS() == 3)
                         {
                             State.setblacksmithS(4);
-                            G_Item ttalisman = new G_Item(STANDARD + 
+                            Vec ttalisman = new Vec(STANDARD + 
                                                       METEORITSKÝ_MEČ);
-                            currentPlace.addItem(ttalisman);
+                            currentPlace.vlozVec(ttalisman);
                         }
                         else
                         {

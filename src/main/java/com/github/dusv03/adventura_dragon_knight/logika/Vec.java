@@ -14,7 +14,7 @@ public class Vec
 	//STATICKÉ TŘÍDNÍ ATRIBUTY
 	
 	 /** Váha nepřenositelných h-objektů. */
-    private static final int HEAVY = Bag.CAPACITY + 1;
+    private static final int HEAVY = Batoh.KAPACITA + 1;
 
     /** Příznak standardního přenositelného h-objektu. */
     static final char STANDARD = '1';

@@ -20,7 +20,7 @@ import com.github.dusv03.adventura_dragon_knight.logika.SeznamPrikazu;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Alena Buchalcevova
  *@version    z kurzu 4IT101 pro školní rok 2013/2014
  */
-class SeznamPrikazu {
+public class SeznamPrikazu {
     // mapa pro uložení přípustných příkazů
     private final Map<String,IPrikaz> mapaSPrikazy;
     private static final SeznamPrikazu SINGLETON = new SeznamPrikazu();

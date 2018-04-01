@@ -5,93 +5,32 @@ package com.github.dusv03.adventura_dragon_knight.logika;
 
 import java.util.Optional;
 
-import static eu.pedu.adv17s._4_1100.dusv03_dusek.game.Texts.*;
-import static eu.pedu.adv17s._4_1100.dusv03_dusek.game.G_Item.*;
+import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
+import static com.github.dusv03.adventura_dragon_knight.logika.Vec.*;
 
 
 
 /*******************************************************************************
- * Instances of the {@code EmptyAction} class process the commands, which
- * ???.
- * <p>
- * Instances of the action classes are effectively singletons,
- * however we do not need to ensure it explicitely, because for their creation
- * and further management the specified action manager takes care
- * which ensures the only instance of each such class.
- * </p>
  *
- * @author  Rudolf PECINOVSKÝ
- * @version 2017-Summer
+ * @author  dusv03
+ * 
  */
 public class ActionTalk
-     extends AAction
+     extends APrikaz
 {
-//\CC== CLASS CONSTANTS (CONSTANT CLASS/STATIC ATTRIBUTES/FIELDS) ==============
-//\CV== CLASS VARIABLES (VARIABLE CLASS/STATIC ATTRIBUTES/FIELDS) ==============
+	private final HerniPlan herniPlan;
+    private final Batoh batoh;
 
-
-
-//##############################################################################
-//\CI== CLASS (STATIC) INITIALIZER (CLASS CONSTRUCTOR) =========================
-//\CF== CLASS (STATIC) FACTORY METHODS =========================================
-//\CG== CLASS (STATIC) GETTERS AND SETTERS =====================================
-//\CM== CLASS (STATIC) REMAINING NON-PRIVATE METHODS ===========================
-
-//\CP== CLASS (STATIC) PRIVATE AND AUXILIARY METHODS ===========================
-
-
-
-
-//##############################################################################
-//\IC== INSTANCE CONSTANTS (CONSTANT INSTANCE ATTRIBUTES/FIELDS) ===============
-//\IV== INSTANCE VARIABLES (VARIABLE INSTANCE ATTRIBUTES/FIELDS) ===============
-
-
-
-//##############################################################################
-//\II== INSTANCE INITIALIZERS (CONSTRUCTORS) ===================================
-
-    /***************************************************************************
-     * Creates the action instance for ...
-     */
-    public ActionTalk()
+    public ActionTalk(HerniPlan herniPlan, Batoh batoh)
     {
         super (Texts.pMLUVIT_S,
                "Hráč promluví s postavou určenou parametrem.\n");
+        this.herniPlan = herniPlan;
+        this.batoh = batoh;
     }
 
-
-
-//\IA== INSTANCE ABSTRACT METHODS ==============================================
-//\IG== INSTANCE GETTERS AND SETTERS ===========================================
-//\IM== INSTANCE REMAINING NON-PRIVATE METHODS =================================
-
-    /***************************************************************************
-     * Processes the command composed from the given words
-     * and returns the game answer to the user.
-     * Number of word depends on particular action, however it must be
-     * at least one, because the zeroth element contains the action name.
-     * The remaining words are arguments of this action and they may differ:
-     * the actions of <i>end</i> and <i>help</i> type do not have any,
-     * the actions of <i>go</i> and <i>take</i> type have one,
-     * the actions of <i>apply</i> type ) can have two (e.g. apply key lock)
-     * or three (e.g. apply key to lock) etc.
-     *
-     * @param arguments Action arguments –
-     *                  their number can be different for each action,
-     *                  but for all execution of the same action is the same
-     * @return The answer of the game after processing the command
-     */
-
-    /***************************************************************************
-    * Předčasně ukončí hru.
-    *
-    * @param arguments Parametry příkazu - zde se nepoužívají
-    * @return Text zprávy vypsané po provedeni příkazu
-    */
-
     @Override
-    public String execute(String... arguments)
+    public String proved(String... arguments)
     {
        if (arguments.length == 1)
         {
@@ -99,14 +38,14 @@ public class ActionTalk
         }
         String itemName;
         itemName = arguments[1];
-        Place currentPlace = World.getInstance().getCurrentPlace();
-        Optional<G_Item> oItem = currentPlace.getOItem(itemName);
+        Prostor currentPlace = herniPlan.getAktualniProstor();
+        Optional<Vec> oItem = currentPlace.vratOVec(itemName);
         if ( ! oItem.isPresent())
         {
             return Texts.zŠPATNÝ_PŘEDMĚT;
         }
         
-        G_Item W_Item = oItem.get();
+        Vec W_Item = oItem.get();
         if (! W_Item.getKOMUNIKATIVITA())
         {
             return Texts.zCHYBNÝ_PARAMETR + Texts.zCHYBA_MLUVIT;
@@ -118,13 +57,13 @@ public class ActionTalk
                 state = State.getmageS();
                 switch(state){
                     case 1: answer = Texts.zČARODĚJ1;
-                            G_Item ttalisman = new G_Item(STANDARD + TALISMAN);
-                            currentPlace.addItem(ttalisman);
+                            Vec ttalisman = new Vec(STANDARD + TALISMAN);
+                            currentPlace.vlozVec(ttalisman);
                             State.setmageS(2);
                             break;
                     
-                    case 2: Bag bag = Bag.getInstance();
-                    Optional<G_Item> oByliny = bag.getOItem(Texts.BYLINY);
+                    case 2: 
+                    Optional<Vec> oByliny = batoh.vratOVec(Texts.BYLINY);
                             if ( ! oByliny.isPresent())
                             {
                                 answer = Texts.zČARODĚJ3;
@@ -175,10 +114,4 @@ public class ActionTalk
         return answer;
     }
 
-//\IP== INSTANCE PRIVATE AND AUXILIARY METHODS =================================
-
-
-
-//##############################################################################
-//\NT== NESTED DATA TYPES ======================================================
 }

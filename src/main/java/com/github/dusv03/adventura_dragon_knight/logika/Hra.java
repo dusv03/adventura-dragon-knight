@@ -1,5 +1,11 @@
 package com.github.dusv03.adventura_dragon_knight.logika;
 
+import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
+import static com.github.dusv03.adventura_dragon_knight.logika.Vec.*;
+
+import com.github.dusv03.adventura_dragon_knight.logika.Hra;
+
+import com.github.dusv03.adventura_dragon_knight.logika.SeznamPrikazu;  
 /**
  *  Třída Hra - třída představující logiku adventury.
  * 
@@ -16,7 +22,8 @@ public class Hra implements IHra {
     private SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
     private HerniPlan herniPlan;
     private boolean konecHry = false;
-    private Batoh batoh ;
+    private Batoh batoh;
+    private static final Hra SINGLETON = new Hra();
 
     /**
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
@@ -25,22 +32,26 @@ public class Hra implements IHra {
         herniPlan = new HerniPlan();
         batoh = new Batoh();
         platnePrikazy = new SeznamPrikazu();
-        platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
-        platnePrikazy.vlozPrikaz(new PrikazJdi(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazKonec(this));
-        platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan, batoh));
-        platnePrikazy.vlozPrikaz(new PrikazObsahBatohu(batoh));
-        platnePrikazy.vlozPrikaz(new PrikazPoloz(herniPlan, batoh));
+        platnePrikazy.vlozPrikaz(new ActionHelp(this));
+        platnePrikazy.vlozPrikaz(new ActionMove(herniPlan, batoh, this));
+        platnePrikazy.vlozPrikaz(new ActionExit(this));
+        platnePrikazy.vlozPrikaz(new ActionPickUp(herniPlan, batoh));
+        platnePrikazy.vlozPrikaz(new PrikazOBatohu(batoh));
+        platnePrikazy.vlozPrikaz(new ActionPutDown(herniPlan, batoh));
+        platnePrikazy.vlozPrikaz(new ActionActivate(herniPlan, batoh));
+        platnePrikazy.vlozPrikaz(new ActionKill(herniPlan, batoh, this));
+        platnePrikazy.vlozPrikaz(new ActionMine(herniPlan, batoh));
+        platnePrikazy.vlozPrikaz(new ActionTalk(herniPlan, batoh));
+        platnePrikazy.vlozPrikaz(new ActionGive(herniPlan, batoh));
+        batoh.vlozVec(new Vec(STANDARD + MEČ));
+        batoh.vlozVec(new Vec(STANDARD + PRSTEN));
     }
 
     /**
      *  Vrátí úvodní zprávu pro hráče.
      */
     public String vratUvitani() {
-        return "Vítejte!\n" +
-               "Toto je příběh o Červené Karkulce, babičce a vlkovi.\n" +
-               "Napište 'napoveda', pokud si nevíte rady, jak hrát dál.\n" +
-               "\n" +
+        return zUVÍTÁNÍ +
                herniPlan.getAktualniProstor().dlouhyPopis();
     }
     
@@ -107,6 +118,10 @@ public class Hra implements IHra {
      */
      public HerniPlan getHerniPlan(){
         return herniPlan;
+     }
+     
+     public SeznamPrikazu vratSeznam(){
+         return platnePrikazy;
      }
     
 }

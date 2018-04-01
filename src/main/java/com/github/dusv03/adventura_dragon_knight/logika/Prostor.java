@@ -3,9 +3,15 @@ package com.github.dusv03.adventura_dragon_knight.logika;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+
+import com.github.dusv03.adventura_dragon_knight.logika.AKontejner;
+
+import com.github.dusv03.adventura_dragon_knight.logika.Prostor;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Optional;
 /**
  * Trida Prostor - popisuje jednotlivé prostory (místnosti) hry
  *
@@ -18,20 +24,15 @@ import java.util.HashMap;
  * @author Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Alena Buchalcevova
  * @version z kurzu 4IT101 pro školní rok 2014/2015
  */
-public class Prostor {
+public class Prostor extends AKontejner{
 
     private String nazev;
     private String popis;
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
  private Map<String, Vec> seznamVeci ;   // seznam věcí v prostoru
-    /**
-     * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
-     * před domem"
-     *
-     * @param nazev nazev prostoru, jednoznačný identifikátor, jedno slovo nebo
-     * víceslovný název bez mezer.
-     * @param popis Popis prostoru.
-     */
+
+ 
+ //konstruktor
     public Prostor(String nazev, String popis) {
         this.nazev = nazev;
         this.popis = popis;
@@ -144,16 +145,17 @@ public class Prostor {
      * @return Prostor, který se nachází za příslušným východem, nebo hodnota
      * null, pokud prostor zadaného jména není sousedem.
      */
-    public Prostor vratSousedniProstor(String nazevSouseda) {
+    public Optional<Prostor> vratSousedniProstor(String nazevSouseda) {
         if (nazevSouseda == null) {
-            return null;
+            return Optional.empty();
         }
         for (Prostor sousedni : vychody) {
             if (sousedni.getNazev().equals(nazevSouseda)) {
-                return sousedni;
+                return Optional.of(sousedni);
             }
         }
-        return null;  // prostor nenalezen
+        return Optional.empty();  // vrĂˇtĂ­ optionĂˇl prostoru
+
     }
 
     /**
@@ -173,9 +175,10 @@ public class Prostor {
      *
      *@param  vec  instance věci, která se má vložit
      */
-   public void vlozVec (Vec vec) {
+   
+    /*public void vlozVec (Vec vec) {
      seznamVeci.put(vec.getJmeno(),vec);
-    }
+    }*/
      /**
      * Vrací řetězec názvů věcí, které jsou v prostoru
 
@@ -195,7 +198,7 @@ public class Prostor {
      *@return            věc nebo
      *                   hodnota null, pokud tam věc daného jména není a nebo není přenositelná
      */
-    public Vec vyberVec (String jmeno) {
+    /*public Vec vyberVec (String jmeno) {
         Vec nalezenaVec = null;
         if (seznamVeci.containsKey(jmeno)) {
             nalezenaVec = seznamVeci.get(jmeno);
@@ -207,5 +210,5 @@ public class Prostor {
             }
         }
         return nalezenaVec;
-    }
+    }*/
 }

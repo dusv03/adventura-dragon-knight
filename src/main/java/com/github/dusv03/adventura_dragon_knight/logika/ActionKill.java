@@ -4,7 +4,6 @@
 package com.github.dusv03.adventura_dragon_knight.logika;
 
 
-import java.util.Collection;
 import java.util.Optional;
 
 /*******************************************************************************
@@ -21,74 +20,23 @@ import java.util.Optional;
  * @version 2017-Summer
  */
 public class ActionKill
-     extends AAction
+     extends APrikaz
 {
-//\CC== CLASS CONSTANTS (CONSTANT CLASS/STATIC ATTRIBUTES/FIELDS) ==============
-//\CV== CLASS VARIABLES (VARIABLE CLASS/STATIC ATTRIBUTES/FIELDS) ==============
+	private final HerniPlan herniPlan;
+    private final Batoh batoh;
+    private final Hra hra;
 
-
-
-//##############################################################################
-//\CI== CLASS (STATIC) INITIALIZER (CLASS CONSTRUCTOR) =========================
-//\CF== CLASS (STATIC) FACTORY METHODS =========================================
-//\CG== CLASS (STATIC) GETTERS AND SETTERS =====================================
-//\CM== CLASS (STATIC) REMAINING NON-PRIVATE METHODS ===========================
-
-//\CP== CLASS (STATIC) PRIVATE AND AUXILIARY METHODS ===========================
-
-
-
-
-//##############################################################################
-//\IC== INSTANCE CONSTANTS (CONSTANT INSTANCE ATTRIBUTES/FIELDS) ===============
-//\IV== INSTANCE VARIABLES (VARIABLE INSTANCE ATTRIBUTES/FIELDS) ===============
-
-
-
-//##############################################################################
-//\II== INSTANCE INITIALIZERS (CONSTRUCTORS) ===================================
-
-    /***************************************************************************
-     * Creates the action instance for ...
-     */
-    public ActionKill()
+    public ActionKill(HerniPlan herniPlan, Batoh batoh, Hra hra)
     {
         super (Texts.pZABÍT,
                "Zabije nepřítele určeného parametrem.");
+        this.herniPlan = herniPlan;
+        this.batoh = batoh;
+        this.hra = hra;
     }
 
-
-
-//\IA== INSTANCE ABSTRACT METHODS ==============================================
-//\IG== INSTANCE GETTERS AND SETTERS ===========================================
-//\IM== INSTANCE REMAINING NON-PRIVATE METHODS =================================
-
-    /***************************************************************************
-     * Processes the command composed from the given words
-     * and returns the game answer to the user.
-     * Number of word depends on particular action, however it must be
-     * at least one, because the zeroth element contains the action name.
-     * The remaining words are arguments of this action and they may differ:
-     * the actions of <i>end</i> and <i>help</i> type do not have any,
-     * the actions of <i>go</i> and <i>take</i> type have one,
-     * the actions of <i>apply</i> type ) can have two (e.g. apply key lock)
-     * or three (e.g. apply key to lock) etc.
-     *
-     * @param arguments Action arguments –
-     *                  their number can be different for each action,
-     *                  but for all execution of the same action is the same
-     * @return The answer of the game after processing the command
-     */
-
-    /***************************************************************************
-    * Předčasně ukončí hru.
-    *
-    * @param arguments Parametry příkazu - zde se nepoužívají
-    * @return Text zprávy vypsané po provedeni příkazu
-    */
-
     @Override
-    public String execute(String... arguments)
+    public String proved(String... arguments)
     {
         if (arguments.length == 1)
         {
@@ -97,13 +45,13 @@ public class ActionKill
 
         String itemName;
         itemName = arguments[1];
-        Place currentPlace = World.getInstance().getCurrentPlace();
-        Optional<G_Item> oItem = currentPlace.getOItem(itemName);
+        Prostor currentPlace = herniPlan.getAktualniProstor();
+        Optional<Vec> oItem = currentPlace.vratOVec(itemName);
         if ( ! oItem.isPresent())
         {
             return Texts.zCHYBA_ZABÍT;
         }
-        G_Item W_Item = oItem.get();
+        Vec W_Item = oItem.get();
         if (! W_Item.getSmrtelnost())
         {
             return Texts.zCHYBA_ZABÍT2 + Texts.zCHYBA_ZABÍT;
@@ -112,15 +60,7 @@ public class ActionKill
         {
             if (State.isGhostKillable())
             {
-                currentPlace.removeItem(W_Item);
-                Place place = currentPlace;
-                Collection<Place> places = World.getInstance().getAllPlaces();
-                for (Place s: places)
-                {
-                    if(s.getName().equals(Texts.ŠTOLA))
-                        place = s;
-                }
-                currentPlace.addNeighbor(place);
+                currentPlace.vyberOVec(W_Item.getJmeno());
                 return Texts.zZABITÍ + " " + Texts.PŘÍZRAK;
             }
             else
@@ -131,28 +71,20 @@ public class ActionKill
         if (itemName.equals(Texts.DRAK))
         {
             String Sword = Texts.METEORITSKÝ_MEČ;
-            Bag bag = Bag.getInstance();
-            Optional<G_Item> oSword = bag.getOItem(Sword);
-            if ( ! oItem.isPresent())
+            Optional<Vec> oSword = batoh.vratOVec(Sword);
+            if ( ! oSword.isPresent())
             {
-                AAction.stopGame();
+                hra.setKonecHry(true);
                 return Texts.zSMRT_DRAK + Texts.zUKONČENÍ;
             }
             else
             {
-                currentPlace.removeItem(W_Item);
-                AAction.stopGame();
+            	currentPlace.vyberOVec(W_Item.getJmeno());
+            	hra.setKonecHry(true);
                 return Texts.zZABITÍDRAKA + Texts.zUKONČENÍ;
             }
         }
         return Texts.zCHYBA_ZABÍT2 + Texts.zCHYBA_ZABÍT;
        
     }
-
-//\IP== INSTANCE PRIVATE AND AUXILIARY METHODS =================================
-
-
-
-//##############################################################################
-//\NT== NESTED DATA TYPES ======================================================
 }

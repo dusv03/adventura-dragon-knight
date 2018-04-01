@@ -1,6 +1,14 @@
 package com.github.dusv03.adventura_dragon_knight.logika;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
+import com.github.dusv03.adventura_dragon_knight.logika.HerniPlan;
+import com.github.dusv03.adventura_dragon_knight.logika.Prostor;
+
+import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
+import static com.github.dusv03.adventura_dragon_knight.logika.Vec.*;
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
  * 
@@ -14,43 +22,80 @@ package com.github.dusv03.adventura_dragon_knight.logika;
  */
 public class HerniPlan {
     
-    private Prostor aktualniProstor;
+	private Map<String, Prostor> prostory;
+	private Prostor aktualniProstor;
     private Prostor viteznyProstor;
+    private static final HerniPlan SINGLETON = new HerniPlan();
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví halu.
      */
     public HerniPlan() {
+    	prostory = new HashMap<String, Prostor>();
         zalozProstoryHry();
 
     }
+    
+    static HerniPlan getInstance(){
+        return SINGLETON;
+    }
+    
     /**
      *  Vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví domeček.
      */
     private void zalozProstoryHry() {
-        // vytvářejí se jednotlivé prostory
-        Prostor domecek = new Prostor("domeček","domeček, ve kterém bydlí Karkulka");
-        Prostor chaloupka = new Prostor("chaloupka", "chaloupka, ve které bydlí babička Karkulky");
-        Prostor jeskyne = new Prostor("jeskyně","stará plesnivá jeskyně");
-        Prostor les = new Prostor("les","les s jahodami, malinami a pramenem vody");
-        Prostor hlubokyLes = new Prostor("hluboký_les","temný les, ve kterém lze potkat vlka");
         
-        // přiřazují se průchody mezi prostory (sousedící prostory)
-        domecek.setVychod(les);
-        les.setVychod(domecek);
-        les.setVychod(hlubokyLes);
-        hlubokyLes.setVychod(les);
-        hlubokyLes.setVychod(jeskyne);
-        hlubokyLes.setVychod(chaloupka);
-        jeskyne.setVychod(hlubokyLes);
-        chaloupka.setVychod(hlubokyLes);
-                
-        aktualniProstor = domecek;  // hra začíná v domečku  
-        viteznyProstor = chaloupka ;
-        les.vlozVec(new Vec("maliny", true));
-        les.vlozVec(new Vec("strom", false));  
+        Prostor rozcesti = new Prostor(ROZCESTÍ,"rozcestí kam vedou všechny cesty");
+        Prostor carodejova_vez = new Prostor(ČARODĚJOVA_VĚŽ,"domov mocného čaroděje");
+        Prostor lesni_mytina = new Prostor(LESNÍ_MÝTINA,"mýtina uprostřed lesa, kde žijí různá tajemná stvoření");
+        Prostor dul = new Prostor(DŮL,"starý železný důl");
+        Prostor stola = new Prostor(ŠTOLA,"štola, kde se těžilo železo");
+        Prostor kovarna = new Prostor(KOVÁRNA,"domov a dílna proslulého kováře");
+        Prostor jeskyne = new Prostor(JESKYNĚ,"tmavá desivá jeskyně");
+        Prostor sluj = new Prostor(SLŮJ,"slůj draka terorizující celý kraj");
+              
+        prostory.put(rozcesti.getNazev(), rozcesti);
+        prostory.put(carodejova_vez.getNazev(), carodejova_vez);
+        prostory.put(lesni_mytina.getNazev(), lesni_mytina);
+        prostory.put(dul.getNazev(), dul);
+        prostory.put(stola.getNazev(), stola);
+        prostory.put(kovarna.getNazev(), kovarna);
+        prostory.put(jeskyne.getNazev(), jeskyne);
+        prostory.put(sluj.getNazev(), sluj);
+
+        
+        rozcesti.setVychod(carodejova_vez);
+        rozcesti.setVychod(lesni_mytina);
+        rozcesti.setVychod(dul);
+        rozcesti.setVychod(kovarna);
+        rozcesti.setVychod(jeskyne);
+        carodejova_vez.setVychod(rozcesti);
+        carodejova_vez.setVychod(kovarna);
+        lesni_mytina.setVychod(rozcesti);
+        dul.setVychod(rozcesti);
+        dul.setVychod(kovarna);
+        dul.setVychod(stola);
+        stola.setVychod(dul);
+        kovarna.setVychod(rozcesti);
+        kovarna.setVychod(carodejova_vez);
+        kovarna.setVychod(dul);
+        jeskyne.setVychod(rozcesti);
+        jeskyne.setVychod(sluj);
+        sluj.setVychod(jeskyne);
+        
+        aktualniProstor = rozcesti;  // hra začíná v domečku  
+        viteznyProstor = sluj ;
+        carodejova_vez.vlozVec(new Vec(COMMUNICATIVE+ČARODĚJ));
+        lesni_mytina.vlozVec(new Vec(COMMUNICATIVE+LESNÍ_VÍLA)); 
+        dul.vlozVec(new Vec(STANDARD+KRUMPÁČ));
+        dul.vlozVec(new Vec(STANDARD+LOPATA));
+        dul.vlozVec(new Vec(STANDARD+VĚDRO));
+        dul.vlozVec(new Vec(KILLABLE+PŘÍZRAK));
+        stola.vlozVec(new Vec(NOT_MOVABLE+METEORITSKÁ_RUDA));
+        kovarna.vlozVec(new Vec(COMMUNICATIVE+KOVÁŘ));
+        sluj.vlozVec(new Vec(KILLABLE+DRAK));
     }
     
     /**
@@ -79,6 +124,10 @@ public class HerniPlan {
     
     public Prostor getViteznyProstor() {
         return viteznyProstor;
+    }
+    
+    public Map<String, Prostor> getProstory() {
+    	return prostory;
     }
 
 }
