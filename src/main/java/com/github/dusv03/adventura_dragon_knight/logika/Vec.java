@@ -110,5 +110,10 @@ public class Vec
     {
         stav = stav2;
     }
+    
+    @Override
+    public String toString() {
+     return getJmeno();
+    }
 }
 

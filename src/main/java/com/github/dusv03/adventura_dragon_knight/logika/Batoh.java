@@ -89,7 +89,6 @@ boolean tryAddItem(Vec i)
     public int get_remains() {
     	return remains;
     }
-
 }
 
 

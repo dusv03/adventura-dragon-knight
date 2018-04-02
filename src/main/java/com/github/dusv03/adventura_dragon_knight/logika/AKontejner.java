@@ -11,12 +11,13 @@ import static java.util.Collections.unmodifiableCollection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Observable;
 
 /**
  *
  * @author dusv03
  */
-public abstract class AKontejner {
+public abstract class AKontejner extends Observable{
     /**
      * Kolekce h-objektů v prostoru
      */
@@ -66,7 +67,8 @@ public abstract class AKontejner {
         if (seznamVeci.containsKey(jmeno)) {
                 OVec = Optional.of(seznamVeci.get(jmeno));
                 seznamVeci.remove(jmeno);
-               
+                this.setChanged();
+                this.notifyObservers();
                 return OVec;
 
             }   
@@ -79,8 +81,9 @@ public abstract class AKontejner {
      *@param  vec  instance věci, která se má vložit
      */
    public void vlozVec (Vec vec) {
-     seznamVeci.put(vec.getJmeno(),vec);    
-     //podle jmena pak budeme vracet veci
+     seznamVeci.put(vec.getJmeno(),vec);
+     this.setChanged();
+     this.notifyObservers();
     }
 }
 

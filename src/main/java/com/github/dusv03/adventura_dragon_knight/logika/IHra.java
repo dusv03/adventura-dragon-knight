@@ -21,6 +21,8 @@ public interface IHra
      */
     public String vratUvitani();
     
+    
+    public void novaHra();
     /**
      *  Vrátí závěrečnou zprávu pro hráče.
      */
@@ -49,6 +51,9 @@ public interface IHra
      *  @return     odkaz na herní plán
      */
      public HerniPlan getHerniPlan();
+
+
+	public Batoh getBatoh();
     
     //== ZDĚDĚNÉ METODY ========================================================
     //== INTERNÍ DATOVÉ TYPY ===================================================

@@ -7,6 +7,8 @@ import java.util.Observable;
 
 import com.github.dusv03.adventura_dragon_knight.logika.HerniPlan;
 import com.github.dusv03.adventura_dragon_knight.logika.Prostor;
+import com.github.dusv03.adventura_dragon_knight.logika.Batoh;
+import com.github.dusv03.adventura_dragon_knight.logika.Hra;
 
 import static com.github.dusv03.adventura_dragon_knight.logika.Texts.*;
 import static com.github.dusv03.adventura_dragon_knight.logika.Vec.*;
@@ -25,21 +27,22 @@ public class HerniPlan extends Observable{
     
 	private Map<String, Prostor> prostory;
 	private Prostor aktualniProstor;
-    private static final HerniPlan SINGLETON = new HerniPlan();
+    private Batoh batoh;    
+    private Hra hra;
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví halu.
      */
-    public HerniPlan() {
+    public HerniPlan(Batoh batoh,Hra hra) {
     	prostory = new HashMap<String, Prostor>();
         zalozProstoryHry();
+        this.batoh = batoh;
+        this.hra = hra;
 
     }
     
-    static HerniPlan getInstance(){
-        return SINGLETON;
-    }
+
     
     /**
      *  Vytváří jednotlivé prostory a propojuje je pomocí východů.
@@ -47,14 +50,14 @@ public class HerniPlan extends Observable{
      */
     private void zalozProstoryHry() {
         
-        Prostor rozcesti = new Prostor(ROZCESTÍ,"rozcestí kam vedou všechny cesty");
-        Prostor carodejova_vez = new Prostor(ČARODĚJOVA_VĚŽ,"domov mocného čaroděje");
-        Prostor lesni_mytina = new Prostor(LESNÍ_MÝTINA,"mýtina uprostřed lesa, kde žijí různá tajemná stvoření");
-        Prostor dul = new Prostor(DŮL,"starý železný důl");
-        Prostor stola = new Prostor(ŠTOLA,"štola, kde se těžilo železo");
-        Prostor kovarna = new Prostor(KOVÁRNA,"domov a dílna proslulého kováře");
-        Prostor jeskyne = new Prostor(JESKYNĚ,"tmavá desivá jeskyně");
-        Prostor sluj = new Prostor(SLŮJ,"slůj draka terorizující celý kraj");
+        Prostor rozcesti = new Prostor(ROZCESTÍ,"rozcestí kam vedou všechny cesty",0,0);
+        Prostor carodejova_vez = new Prostor(ČARODĚJOVA_VĚŽ,"domov mocného čaroděje",110,0);
+        Prostor lesni_mytina = new Prostor(LESNÍ_MÝTINA,"mýtina uprostřed lesa, kde žijí různá tajemná stvoření",-10,80);
+        Prostor dul = new Prostor(DŮL,"starý železný důl",-50,-60);
+        Prostor stola = new Prostor(ŠTOLA,"štola, kde se těžilo železo",-180,-100);
+        Prostor kovarna = new Prostor(KOVÁRNA,"domov a dílna proslulého kováře",55,-70);
+        Prostor jeskyne = new Prostor(JESKYNĚ,"tmavá desivá jeskyně",-110,10);
+        Prostor sluj = new Prostor(SLŮJ,"slůj draka terorizující celý kraj",-190,10);
               
         prostory.put(rozcesti.getNazev(), rozcesti);
         prostory.put(carodejova_vez.getNazev(), carodejova_vez);

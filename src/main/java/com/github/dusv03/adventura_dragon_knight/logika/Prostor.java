@@ -1,5 +1,6 @@
 package com.github.dusv03.adventura_dragon_knight.logika;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import com.github.dusv03.adventura_dragon_knight.logika.AKontejner;
 
 import com.github.dusv03.adventura_dragon_knight.logika.Prostor;
+import com.github.dusv03.adventura_dragon_knight.ui.HomeController;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -29,15 +31,19 @@ public class Prostor extends AKontejner{
     private String nazev;
     private String popis;
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
- private Map<String, Vec> seznamVeci ;   // seznam věcí v prostoru
+    private Map<String, Vec> seznamVeci ;   // seznam věcí v prostoru
+    private double x;
+    private double y;
 
  
  //konstruktor
-    public Prostor(String nazev, String popis) {
+    public Prostor(String nazev, String popis,double x, double y) {
         this.nazev = nazev;
         this.popis = popis;
         vychody = new HashSet<>();
         seznamVeci = new HashMap<String, Vec>();
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -211,4 +217,37 @@ public class Prostor extends AKontejner{
         }
         return nalezenaVec;
     }*/
+    
+
+    public Collection<Vec> getPredmety() {
+		return new ArrayList<Vec>(seznamVeci.values());
+}
+
+    public double getX() 
+    {
+    	 	return x;
+   	}
+  
+       
+    public void setX(double x) 
+    {
+    	 	this.x = x;
+    }
+
+        
+    public double getY() 
+    {
+    	 	return y;
+   	}
+    	
+
+    public void setY(double y) 
+    {
+    	 	this.y = y;
+    }
+
+    @Override
+    public String toString() {
+     return getNazev();
+    }
 }

@@ -35,9 +35,16 @@ public class Hra implements IHra {
     /**
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
-    public Hra() {
-        herniPlan = new HerniPlan();
+    
+    public Hra() 
+    {
+        novaHra();
+    }
+    
+    
+    public void novaHra() {
         batoh = new Batoh();
+        herniPlan = new HerniPlan(batoh, this);
         platnePrikazy = new SeznamPrikazu();
         platnePrikazy.vlozPrikaz(new ActionHelp(this));
         platnePrikazy.vlozPrikaz(new ActionMove(herniPlan, batoh, this));
@@ -56,6 +63,8 @@ public class Hra implements IHra {
         batoh.set_remains(2);
     }
 
+    
+    
     /**
      *  Vrátí úvodní zprávu pro hráče.
      */
@@ -130,6 +139,10 @@ public class Hra implements IHra {
      */
      public HerniPlan getHerniPlan(){
         return herniPlan;
+     }
+     
+     public Batoh getBatoh() {
+    	 return batoh;
      }
      
      public SeznamPrikazu vratSeznam(){
