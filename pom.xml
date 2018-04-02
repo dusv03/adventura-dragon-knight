@@ -45,7 +45,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<mainClass>
-	com.github.dusv03.adventura.main.Start</mainClass>
+	com.github.dusv03.adventura_dragon_knight.main.Start</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

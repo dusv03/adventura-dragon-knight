@@ -6,6 +6,14 @@ package com.github.dusv03.adventura_dragon_knight.main;
 
 import com.github.dusv03.adventura_dragon_knight.logika.*;
 import com.github.dusv03.adventura_dragon_knight.ui.TextoveRozhrani;
+import com.github.dusv03.adventura_dragon_knight.ui.HomeController;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 
 
 /*******************************************************************************
@@ -15,7 +23,7 @@ import com.github.dusv03.adventura_dragon_knight.ui.TextoveRozhrani;
  * @author   dusv03
  * @version   0.00.000
  */
-public class Start
+public class Start extends Application
 {
     /***************************************************************************
      * Metoda, prostřednictvím níž se spouští celá aplikace.
@@ -25,8 +33,30 @@ public class Start
     public static void main(String[] args)
     {
         
-        IHra hra = new Hra();
-        TextoveRozhrani ui = new TextoveRozhrani(hra);
-        ui.hraj();
+    	if (args.length == 0) {
+            launch(args);
+        } else {
+            if (args[0].equals("-text")) {
+                IHra hra = new Hra();
+                TextoveRozhrani ui = new TextoveRozhrani(hra);
+                ui.hraj();
+            } else {
+                System.out.println("Neplatný parametr");
+            }
+        }
+    }	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("../ui/MainWindow.fxml"));    	
+    	Parent root = loader.load();
+
+    	HomeController controller = loader.getController();
+    	IHra hra = new Hra();
+		controller.inicializuj(hra);
+    	
+    	primaryStage.setScene(new Scene(root));
+    	primaryStage.show();
+    	primaryStage.setTitle("Základní adventura");
+		
+	    }
     }
-}

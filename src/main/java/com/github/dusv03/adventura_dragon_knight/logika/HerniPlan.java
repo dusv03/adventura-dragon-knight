@@ -3,6 +3,7 @@ package com.github.dusv03.adventura_dragon_knight.logika;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Observable;
 
 import com.github.dusv03.adventura_dragon_knight.logika.HerniPlan;
 import com.github.dusv03.adventura_dragon_knight.logika.Prostor;
@@ -20,7 +21,7 @@ import static com.github.dusv03.adventura_dragon_knight.logika.Vec.*;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Alena Buchalcevova
  *@version    z kurzu 4IT101 pro školní rok 2014/2015
  */
-public class HerniPlan {
+public class HerniPlan extends Observable{
     
 	private Map<String, Prostor> prostory;
 	private Prostor aktualniProstor;
@@ -113,6 +114,8 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+       this.setChanged();
+       this.notifyObservers();
     }
     /**
      *  Metoda vrací odkaz na vítězný prostor.
