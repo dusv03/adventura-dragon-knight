@@ -57,7 +57,7 @@ public class ActionTalk
                 state = State.getmageS();
                 switch(state){
                     case 1: answer = Texts.zČARODĚJ1;
-                            Vec ttalisman = new Vec(STANDARD + TALISMAN);
+                            Vec ttalisman = new Vec(STANDARD + TALISMAN, "/com/github/dusv03/adventura_dragon_knight/ui/talisman.PNG");
                             currentPlace.vlozVec(ttalisman);
                             State.setmageS(2);
                             break;

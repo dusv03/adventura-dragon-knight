@@ -89,15 +89,15 @@ public class HerniPlan extends Observable{
         sluj.setVychod(jeskyne);
         
         aktualniProstor = rozcesti;  // hra začíná v domečku  
-        carodejova_vez.vlozVec(new Vec(COMMUNICATIVE+ČARODĚJ));
-        lesni_mytina.vlozVec(new Vec(COMMUNICATIVE+LESNÍ_VÍLA)); 
-        dul.vlozVec(new Vec(STANDARD+KRUMPÁČ));
-        dul.vlozVec(new Vec(STANDARD+LOPATA));
-        dul.vlozVec(new Vec(STANDARD+VĚDRO));
-        dul.vlozVec(new Vec(KILLABLE+PŘÍZRAK));
-        stola.vlozVec(new Vec(NOT_MOVABLE+METEORITSKÁ_RUDA));
-        kovarna.vlozVec(new Vec(COMMUNICATIVE+KOVÁŘ));
-        sluj.vlozVec(new Vec(KILLABLE+DRAK));
+        carodejova_vez.vlozVec(new Vec(COMMUNICATIVE+ČARODĚJ, "/com/github/dusv03/adventura_dragon_knight/ui/mage.PNG"));
+        lesni_mytina.vlozVec(new Vec(COMMUNICATIVE+LESNÍ_VÍLA, "/com/github/dusv03/adventura_dragon_knight/ui/fairy.PNG")); 
+        dul.vlozVec(new Vec(STANDARD+KRUMPÁČ, "/com/github/dusv03/adventura_dragon_knight/ui/pickaxe.PNG"));
+        dul.vlozVec(new Vec(STANDARD+LOPATA, "/com/github/dusv03/adventura_dragon_knight/ui/shovel.PNG"));
+        dul.vlozVec(new Vec(STANDARD+VĚDRO, "/com/github/dusv03/adventura_dragon_knight/ui/bucket.PNG"));
+        dul.vlozVec(new Vec(KILLABLE+PŘÍZRAK, "/com/github/dusv03/adventura_dragon_knight/ui/ghost.PNG"));
+        stola.vlozVec(new Vec(NOT_MOVABLE+METEORITSKÁ_RUDA, "/com/github/dusv03/adventura_dragon_knight/ui/rock.PNG"));
+        kovarna.vlozVec(new Vec(COMMUNICATIVE+KOVÁŘ, "/com/github/dusv03/adventura_dragon_knight/ui/blacksmith.PNG"));
+        sluj.vlozVec(new Vec(KILLABLE+DRAK, "/com/github/dusv03/adventura_dragon_knight/ui/dragon.PNG"));
     }
     
     /**

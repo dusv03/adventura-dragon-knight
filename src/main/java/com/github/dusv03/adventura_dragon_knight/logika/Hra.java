@@ -57,8 +57,8 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new ActionMine(herniPlan, batoh));
         platnePrikazy.vlozPrikaz(new ActionTalk(herniPlan, batoh));
         platnePrikazy.vlozPrikaz(new ActionGive(herniPlan, batoh));
-        batoh.vlozVec(new Vec(STANDARD + MEČ));
-        batoh.vlozVec(new Vec(STANDARD + PRSTEN));
+        batoh.vlozVec(new Vec(STANDARD + MEČ, "/com/github/dusv03/adventura_dragon_knight/ui/sword1.PNG"));
+        batoh.vlozVec(new Vec(STANDARD + PRSTEN, "/com/github/dusv03/adventura_dragon_knight/ui/ring.PNG"));
         State.initialize();
         batoh.set_remains(2);
     }

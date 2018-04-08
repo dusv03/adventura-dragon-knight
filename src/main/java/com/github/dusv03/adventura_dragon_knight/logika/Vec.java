@@ -34,6 +34,7 @@ public class Vec
     private final boolean KOMUNIKATIVITA;
     private int váha;
     private int stav;
+    private String uri;
 
 //##############################################################################
 //== Konstruktory a tovární metody =============================================
@@ -41,10 +42,11 @@ public class Vec
     /***************************************************************************
      *
      */
-    public Vec (String jmeno) {
+    public Vec (String jmeno, String uri) {
 		this.jmeno = jmeno.substring(1);
         boolean eSMRTELNOST = false;
         boolean eKOMUNIKATIVITA = false;
+        this.uri = uri;
         váha = HEAVY;
         stav = 1;
 
