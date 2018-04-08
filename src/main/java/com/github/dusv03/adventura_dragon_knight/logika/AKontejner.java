@@ -11,6 +11,9 @@ import static java.util.Collections.unmodifiableCollection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import com.github.dusv03.adventura_dragon_knight.logika.Vec;
+
 import java.util.Observable;
 
 /**
@@ -85,6 +88,14 @@ public abstract class AKontejner extends Observable{
      this.setChanged();
      this.notifyObservers();
     }
+   
+   public Map<String, Vec> getMPredmety(){
+   	return seznamVeci;
+   }
+   
+   public Vec getPredmet(String nazevPredmetu) {
+       return seznamVeci.get(nazevPredmetu);
+    } 
 }
 
 

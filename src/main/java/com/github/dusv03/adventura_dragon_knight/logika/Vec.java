@@ -117,5 +117,9 @@ public class Vec
     public String toString() {
      return getJmeno();
     }
+    
+    public String getUri() {
+    	return uri;
+    }
 }
 

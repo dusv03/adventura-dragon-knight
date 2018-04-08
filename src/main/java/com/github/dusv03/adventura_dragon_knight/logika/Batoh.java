@@ -13,8 +13,6 @@ import java.util.HashMap;
  *  Trida Batoh 
  *
  *
- *@author     Alena Buchalcevova
- *@version    z kurzu 4IT101 pro školní rok 2014/2015
  */
 
 public class Batoh extends AKontejner

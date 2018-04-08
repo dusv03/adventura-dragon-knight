@@ -8,7 +8,7 @@ import java.util.Set;
 import com.github.dusv03.adventura_dragon_knight.logika.AKontejner;
 
 import com.github.dusv03.adventura_dragon_knight.logika.Prostor;
-import com.github.dusv03.adventura_dragon_knight.ui.HomeController;
+import com.github.dusv03.adventura_dragon_knight.logika.Vec;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -222,7 +222,8 @@ public class Prostor extends AKontejner{
     public Collection<Vec> getPredmety() {
 		return new ArrayList<Vec>(seznamVeci.values());
 }
-
+    
+  
     public double getX() 
     {
     	 	return x;

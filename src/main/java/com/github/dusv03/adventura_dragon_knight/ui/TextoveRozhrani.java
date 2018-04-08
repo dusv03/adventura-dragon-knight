@@ -44,6 +44,7 @@ public class TextoveRozhrani {
         }
 
         System.out.println(hra.vratEpilog());
+        
     }
 
     /**
