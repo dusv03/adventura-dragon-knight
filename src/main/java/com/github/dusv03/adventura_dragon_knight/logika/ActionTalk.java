@@ -57,7 +57,7 @@ public class ActionTalk
                 state = State.getmageS();
                 switch(state){
                     case 1: answer = Texts.zČARODĚJ1;
-                            Vec ttalisman = new Vec(STANDARD + TALISMAN, "/ui/talisman.PNG");
+                            Vec ttalisman = new Vec(STANDARD + TALISMAN, "/ui/talisman.png");
                             currentPlace.vlozVec(ttalisman);
                             State.setmageS(2);
                             break;

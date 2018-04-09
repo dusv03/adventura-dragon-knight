@@ -62,7 +62,7 @@ public class ActionGive
                     batoh.set_remains(x+1);
                     answer = Texts.zPŘEDÁNÍ + " " + Texts.BYLINY;
                     State.setmageS(3);
-                    Vec ttalisman = new Vec(STANDARD + AMULET, "/ui/amulet.PNG");
+                    Vec ttalisman = new Vec(STANDARD + AMULET, "/ui/amulet.png");
                     currentPlace.vlozVec(ttalisman);
                 }
                 else
@@ -78,7 +78,7 @@ public class ActionGive
                     int x = batoh.get_remains();
                     batoh.set_remains(x+1);
                     State.setspriteS(3);
-                    Vec ttalisman = new Vec(STANDARD + BYLINY, "/flowers.PNG");
+                    Vec ttalisman = new Vec(STANDARD + BYLINY, "/flowers.png");
                     currentPlace.vlozVec(ttalisman);
                     answer = Texts.zLESNÍVÍLA2;
                 }
@@ -99,7 +99,7 @@ public class ActionGive
                     {
                         State.setblacksmithS(4);
                         Vec ttalisman = new Vec(STANDARD + 
-                                                      METEORITSKÝ_MEČ, "/ui/sword.PNG");
+                                                      METEORITSKÝ_MEČ, "/ui/sword.png");
                         currentPlace.vlozVec(ttalisman);
                     }
                     else
@@ -120,7 +120,7 @@ public class ActionGive
                         {
                             State.setblacksmithS(4);
                             Vec ttalisman = new Vec(STANDARD + 
-                                                      METEORITSKÝ_MEČ, "/ui/sword.PNG");
+                                                      METEORITSKÝ_MEČ, "/ui/sword.png");
                             currentPlace.vlozVec(ttalisman);
                         }
                         else

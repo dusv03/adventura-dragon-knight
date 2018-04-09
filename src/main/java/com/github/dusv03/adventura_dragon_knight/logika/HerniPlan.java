@@ -89,15 +89,15 @@ public class HerniPlan extends Observable{
         sluj.setVychod(jeskyne);
         
         aktualniProstor = rozcesti;  // hra začíná v domečku  
-        carodejova_vez.vlozVec(new Vec(COMMUNICATIVE+ČARODĚJ, "/ui/mage.PNG"));
-        lesni_mytina.vlozVec(new Vec(COMMUNICATIVE+LESNÍ_VÍLA, "/ui/fairy.PNG")); 
-        dul.vlozVec(new Vec(STANDARD+KRUMPÁČ, "/ui/pickaxe.PNG"));
-        dul.vlozVec(new Vec(STANDARD+LOPATA, "/ui/shovel.PNG"));
-        dul.vlozVec(new Vec(STANDARD+VĚDRO, "/ui/bucket.PNG"));
-        dul.vlozVec(new Vec(KILLABLE+PŘÍZRAK, "/ui/ghost.PNG"));
-        stola.vlozVec(new Vec(NOT_MOVABLE+METEORITSKÁ_RUDA, "/ui/rock.PNG"));
-        kovarna.vlozVec(new Vec(COMMUNICATIVE+KOVÁŘ, "/ui/blacksmith.PNG"));
-        sluj.vlozVec(new Vec(KILLABLE+DRAK, "/ui/dragon.PNG"));
+        carodejova_vez.vlozVec(new Vec(COMMUNICATIVE+ČARODĚJ, "/ui/mage.png"));
+        lesni_mytina.vlozVec(new Vec(COMMUNICATIVE+LESNÍ_VÍLA, "/ui/fairy.png")); 
+        dul.vlozVec(new Vec(STANDARD+KRUMPÁČ, "/ui/pickaxe.png"));
+        dul.vlozVec(new Vec(STANDARD+LOPATA, "/ui/shovel.png"));
+        dul.vlozVec(new Vec(STANDARD+VĚDRO, "/ui/bucket.png"));
+        dul.vlozVec(new Vec(KILLABLE+PŘÍZRAK, "/ui/ghost.png"));
+        stola.vlozVec(new Vec(NOT_MOVABLE+METEORITSKÁ_RUDA, "/ui/rock.png"));
+        kovarna.vlozVec(new Vec(COMMUNICATIVE+KOVÁŘ, "/ui/blacksmith.png"));
+        sluj.vlozVec(new Vec(KILLABLE+DRAK, "/ui/dragon.png"));
     }
     
     /**
