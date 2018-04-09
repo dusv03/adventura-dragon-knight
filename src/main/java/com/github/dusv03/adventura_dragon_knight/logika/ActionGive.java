@@ -62,7 +62,7 @@ public class ActionGive
                     batoh.set_remains(x+1);
                     answer = Texts.zPŘEDÁNÍ + " " + Texts.BYLINY;
                     State.setmageS(3);
-                    Vec ttalisman = new Vec(STANDARD + AMULET, "/com/github/dusv03/adventura_dragon_knight/ui/amulet.PNG");
+                    Vec ttalisman = new Vec(STANDARD + AMULET, "/ui/amulet.PNG");
                     currentPlace.vlozVec(ttalisman);
                 }
                 else
@@ -78,7 +78,7 @@ public class ActionGive
                     int x = batoh.get_remains();
                     batoh.set_remains(x+1);
                     State.setspriteS(3);
-                    Vec ttalisman = new Vec(STANDARD + BYLINY, "/com/github/dusv03/adventura_dragon_knight/ui/flowers.PNG");
+                    Vec ttalisman = new Vec(STANDARD + BYLINY, "/flowers.PNG");
                     currentPlace.vlozVec(ttalisman);
                     answer = Texts.zLESNÍVÍLA2;
                 }
@@ -99,7 +99,7 @@ public class ActionGive
                     {
                         State.setblacksmithS(4);
                         Vec ttalisman = new Vec(STANDARD + 
-                                                      METEORITSKÝ_MEČ, "/com/github/dusv03/adventura_dragon_knight/ui/sword.PNG");
+                                                      METEORITSKÝ_MEČ, "/ui/sword.PNG");
                         currentPlace.vlozVec(ttalisman);
                     }
                     else
@@ -120,7 +120,7 @@ public class ActionGive
                         {
                             State.setblacksmithS(4);
                             Vec ttalisman = new Vec(STANDARD + 
-                                                      METEORITSKÝ_MEČ, "/com/github/dusv03/adventura_dragon_knight/ui/sword.PNG");
+                                                      METEORITSKÝ_MEČ, "/ui/sword.PNG");
                             currentPlace.vlozVec(ttalisman);
                         }
                         else
