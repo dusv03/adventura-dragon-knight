@@ -78,7 +78,7 @@ public class ActionGive
                     int x = batoh.get_remains();
                     batoh.set_remains(x+1);
                     State.setspriteS(3);
-                    Vec ttalisman = new Vec(STANDARD + BYLINY, "/flowers.png");
+                    Vec ttalisman = new Vec(STANDARD + BYLINY, "/ui/flowers.png");
                     currentPlace.vlozVec(ttalisman);
                     answer = Texts.zLESNÍVÍLA2;
                 }
