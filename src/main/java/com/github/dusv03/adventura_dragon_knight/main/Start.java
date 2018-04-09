@@ -47,7 +47,7 @@ public class Start extends Application
     }	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("../ui/MainWindow.fxml"));    	
+    	loader.setLocation(getClass().getResource("/com/github/dusv03/adventura_dragon_knight/ui/MainWindow.fxml"));    	
     	Parent root = loader.load();
 
     	HomeController controller = loader.getController();
